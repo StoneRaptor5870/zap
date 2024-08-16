@@ -19,7 +19,7 @@ router.post("/signup", async (req: Request, res: Response) => {
 
   const userExists = await prismaClient.user.findFirst({
     where: {
-      email: parsedData.data.username,
+      email: parsedData.data.email,
     },
   });
 
@@ -34,7 +34,7 @@ router.post("/signup", async (req: Request, res: Response) => {
 
   const user = await prismaClient.user.create({
     data: {
-      email: parsedData.data.username,
+      email: parsedData.data.email,
       password: hashedPassword,
       name: parsedData.data.name,
     },
@@ -70,15 +70,23 @@ router.post("/signin", async (req: Request, res: Response) => {
 
   const user = await prismaClient.user.findFirst({
     where: {
-      email: parsedData.data.username,
-      password: parsedData.data.password,
+      email: parsedData.data.email,
     },
   });
 
   if (!user) {
     return res.status(403).json({
-      message: "Sorry credentials are incorrect",
+      message: "User Not Found. Signup First.",
     });
+  }
+
+  const passwordMatched = await bcrypt.compare(
+    parsedData.data.password,
+    user.password
+  );
+
+  if (!passwordMatched) {
+    return res.status(400).send({ message: "wrong password" });
   }
 
   // sign the jwt

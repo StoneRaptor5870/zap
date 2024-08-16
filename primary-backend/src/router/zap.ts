@@ -55,6 +55,8 @@ router.post("/", authMiddleware, async (req: AuthRequest, res: Response) => {
     });
 
     return zap.id;
+  }, {
+    timeout: 60000
   });
   return res.json({
     zapId,

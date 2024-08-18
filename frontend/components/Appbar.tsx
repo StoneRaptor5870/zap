@@ -13,6 +13,10 @@ export const Appbar = () => {
         router.push("/");
     };
 
+    const showLogoutButton = ["/dashboard", "/zap/create"].some(route => pathname.startsWith(route)) || pathname.startsWith("/zap/");
+    
+    const hideSignupButton = ["/dashboard", "/zap/create"].some(route => pathname.startsWith(route)) || pathname.startsWith("/zap/");
+
     return (
         <div className="flex border-b justify-between p-4">
             <div className="flex flex-col justify-center text-2xl font-extrabold">Zapier</div>
@@ -21,7 +25,7 @@ export const Appbar = () => {
                     <LinkButton onClick={() => {}}>Contact Sales</LinkButton>
                 </div>
                 <div className="pr-4">
-                    {pathname === "/dashboard" ? (
+                    {showLogoutButton ? (
                         <LinkButton onClick={handleLogout}>Logout</LinkButton>
                     ) : (
                         <LinkButton
@@ -33,13 +37,15 @@ export const Appbar = () => {
                         </LinkButton>
                     )}
                 </div>
-                <PrimaryButton
-                    onClick={() => {
-                        router.push("/signup");
-                    }}
-                >
-                    Signup
-                </PrimaryButton>
+                {!hideSignupButton && (
+                    <PrimaryButton
+                        onClick={() => {
+                            router.push("/signup");
+                        }}
+                    >
+                        Signup
+                    </PrimaryButton>
+                )}
             </div>
         </div>
     );

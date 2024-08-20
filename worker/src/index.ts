@@ -3,37 +3,38 @@ import { PrismaClient } from "@prisma/client";
 import { JsonObject } from "@prisma/client/runtime/library";
 import { Kafka } from "kafkajs";
 import { parse } from "./parser";
+import { sendEmail } from "./email";
 
 configDotenv();
 const prismaClient = new PrismaClient();
-const TOPIC_NAME = "zap-events";
+const TOPIC_NAME = "zap-events"
 
 const kafka = new Kafka({
-  clientId: "outbox-processor",
-  brokers: ["localhost:9092"],
-});
+    clientId: 'outbox-processor-2',
+    brokers: ['localhost:9092']
+})
 
 async function main() {
-  const consumer = kafka.consumer({ groupId: "main-worker" });
-  await consumer.connect();
-  const producer =  kafka.producer();
-  await producer.connect();
-  await consumer.subscribe({ topic: TOPIC_NAME, fromBeginning: true });
+    const consumer = kafka.consumer({ groupId: 'main-worker' });
+    await consumer.connect();
+    const producer =  kafka.producer();
+    await producer.connect();
 
-  await consumer.run({
-    autoCommit: false,
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        partition,
-        offset: message.offset,
-        value: message.value?.toString(),
-      });
+    await consumer.subscribe({ topic: TOPIC_NAME, fromBeginning: true })
 
-      if (!message.value?.toString()) {
-        return;
-      }
+    await consumer.run({
+        autoCommit: false,
+        eachMessage: async ({ topic, partition, message }) => {
+          console.log({
+            partition,
+            offset: message.offset,
+            value: message.value?.toString(),
+          })
+          if (!message.value?.toString()) {
+            return;
+          }
 
-      const parsedValue = JSON.parse(message.value?.toString());
+          const parsedValue = JSON.parse(message.value?.toString());
           const zapRunId = parsedValue.zapRunId;
           const stage = parsedValue.stage;
 
@@ -62,17 +63,47 @@ async function main() {
 
           const zapRunMetadata = zapRunDetails?.metadata;
 
-      console.log("processing done");
+          if (currentAction.type.id === "email") {
+            const body = parse((currentAction.metadata as JsonObject)?.body as string, zapRunMetadata);
+            const to = parse((currentAction.metadata as JsonObject)?.email as string, zapRunMetadata);
+            console.log(`Sending out email to ${to} body is ${body}`)
+            await sendEmail(to, body);
+          }
 
-      await consumer.commitOffsets([
-        {
-          topic: TOPIC_NAME,
-          partition: partition,
-          offset: (parseInt(message.offset) + 1).toString(),
+          if (currentAction.type.id === "send-sol") {
+
+            const amount = parse((currentAction.metadata as JsonObject)?.amount as string, zapRunMetadata);
+            const address = parse((currentAction.metadata as JsonObject)?.address as string, zapRunMetadata);
+            console.log(`Sending out SOL of ${amount} to address ${address}`);
+            // await sendSol(address, amount);
+          }
+
+          const lastStage = (zapRunDetails?.zap.actions?.length || 1) - 1; // 1
+          console.log(lastStage);
+          console.log(stage);
+          if (lastStage !== stage) {
+            console.log("pushing back to the queue")
+            await producer.send({
+              topic: TOPIC_NAME,
+              messages: [{
+                value: JSON.stringify({
+                  stage: stage + 1,
+                  zapRunId
+                })
+              }]
+            })  
+          }
+
+          console.log("processing done");
+
+          await consumer.commitOffsets([{
+            topic: TOPIC_NAME,
+            partition: partition,
+            offset: (parseInt(message.offset) + 1).toString() // 5
+          }])
         },
-      ]);
-    },
-  });
+      })
+
 }
 
-main();
+main()

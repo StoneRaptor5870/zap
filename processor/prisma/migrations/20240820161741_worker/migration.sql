@@ -22,7 +22,7 @@ CREATE TABLE "Trigger" (
     "id" TEXT NOT NULL,
     "zapId" TEXT NOT NULL,
     "triggerId" TEXT NOT NULL,
-    "metaData" JSONB NOT NULL DEFAULT '{}',
+    "metadata" JSONB NOT NULL DEFAULT '{}',
 
     CONSTRAINT "Trigger_pkey" PRIMARY KEY ("id")
 );
@@ -36,6 +36,24 @@ CREATE TABLE "Action" (
     "sortingOrder" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Action_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AvailableAction" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+
+    CONSTRAINT "AvailableAction_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AvailableTrigger" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "image" TEXT NOT NULL,
+
+    CONSTRAINT "AvailableTrigger_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -53,24 +71,6 @@ CREATE TABLE "ZapRunOutbox" (
     "zapRunId" TEXT NOT NULL,
 
     CONSTRAINT "ZapRunOutbox_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "AvailableTrigger" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
-
-    CONSTRAINT "AvailableTrigger_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "AvailableAction" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "image" TEXT NOT NULL,
-
-    CONSTRAINT "AvailableAction_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

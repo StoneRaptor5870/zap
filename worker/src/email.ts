@@ -1,15 +1,10 @@
 import nodemailer from "nodemailer";
-// SOL_PRIVATE_KEY=""
-// SMTP_USERNAME=""
-// SMTP_PASSWORD=""
-// SMTP_ENDPOINT
 
 const transport = nodemailer.createTransport({
-  host: process.env.SMTP_ENDPOINT,
+  host: process.env.SMTP_HOST,
   port: 587,
-  secure: false, // upgrade later with STARTTLS
   auth: {
-    user: process.env.SMTP_USERNAME,
+    user: process.env.SMTP_LOGIN,
     pass: process.env.SMTP_PASSWORD,
   },
 });
@@ -17,9 +12,9 @@ const transport = nodemailer.createTransport({
 export async function sendEmail(to: string, body: string) {
   await transport.sendMail({
     from: "nischay",
-    sender: "nischay.dtu@gmail.com",
+    sender: process.env.SMTP_LOGIN,
     to,
-    subject: "Hello from Zapier",
+    subject: "Hello from Zap",
     text: body,
   });
 }

@@ -1,7 +1,7 @@
 import { configDotenv } from "dotenv";
 import { PrismaClient } from "@prisma/client";
 import { JsonObject } from "@prisma/client/runtime/library";
-import { Kafka } from "kafkajs";
+import { Kafka, logLevel } from "kafkajs";
 import { parse } from "./parser";
 import { sendEmail } from "./email";
 
@@ -10,8 +10,14 @@ const prismaClient = new PrismaClient();
 const TOPIC_NAME = "zap-events";
 
 const kafka = new Kafka({
-  clientId: "outbox-processor-2",
-  brokers: ["localhost:9092"],
+  brokers: [process.env.KAFKA_BROKER as string],
+  ssl: true,
+  sasl: {
+      mechanism: 'scram-sha-256',
+      username: process.env.KAFKA_USERNAME as string,
+      password: process.env.KAFKA_PASSWRD as string
+  },
+  logLevel: logLevel.ERROR,
 });
 
 async function main() {

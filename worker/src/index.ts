@@ -15,7 +15,7 @@ const kafka = new Kafka({
   sasl: {
       mechanism: 'scram-sha-256',
       username: process.env.KAFKA_USERNAME as string,
-      password: process.env.KAFKA_PASSWRD as string
+      password: process.env.KAFKA_PASSWORD as string
   },
   logLevel: logLevel.ERROR,
 });
@@ -23,8 +23,10 @@ const kafka = new Kafka({
 async function main() {
   const consumer = kafka.consumer({ groupId: "main-worker" });
   await consumer.connect();
+  console.log("Kafka consumer connected");
   const producer = kafka.producer();
   await producer.connect();
+  console.log("Kafka producer connected");
 
   await consumer.subscribe({ topic: TOPIC_NAME, fromBeginning: true });
 

@@ -13,7 +13,7 @@ async function main() {
 
   await prismaClient.availableAction.create({
     data: {
-      id: "send-sol",
+      id: "sol",
       name: "Send Solana",
       image:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT10458YI0Lf1-Zx4fGwhWxI_x4oPCD034xaw&s",

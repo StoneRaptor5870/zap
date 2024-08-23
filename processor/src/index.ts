@@ -12,7 +12,7 @@ const kafka = new Kafka({
   sasl: {
       mechanism: 'scram-sha-256',
       username: process.env.KAFKA_USERNAME as string,
-      password: process.env.KAFKA_PASSWRD as string
+      password: process.env.KAFKA_PASSWORD as string
   },
   logLevel: logLevel.ERROR,
 });
@@ -20,6 +20,7 @@ const kafka = new Kafka({
 async function main() {
   const producer = kafka.producer();
   await producer.connect();
+  console.log("Kafka producer connected");
 
   while (1) {
     const pendingRows = await client.zapRunOutbox.findMany({

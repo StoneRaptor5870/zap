@@ -115,7 +115,7 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
       <div className="flex justify-between gap-12">
         <div className="flex-1">Name</div>
         <div className="flex-1">ID</div>
-        <div className="flex-1">Created at</div>
+        {/* <div className="flex-1">Created at</div> */}
         <div className="flex-1">Webhook URL</div>
         <div className="flex-1"></div>
       </div>
@@ -137,7 +137,7 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
             ))}
           </div>
           <div className="flex-1">{z.id}</div>
-          <div className="flex-1">{new Date().toLocaleString()}</div>
+          {/* <div className="flex-1">{new Date().toLocaleString()}</div> */}
           <div className="flex-1">
             <a
               href={`${HOOKS_URL}/hooks/catch/${z.userId}/${z.id}`}

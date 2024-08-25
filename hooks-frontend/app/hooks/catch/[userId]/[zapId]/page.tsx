@@ -68,10 +68,15 @@ export default function Hook() {
   };
 
   return (
-    <div className="flex justify-center items-center gap-6 pt-16">
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+    <div className="flex justify-center items-center gap-6 pt-12 pd-12 px-4 md:px-8">
+      <form
+        className="flex flex-col gap-4 w-full max-w-lg bg-white p-4 rounded-lg shadow-md"
+        onSubmit={handleSubmit}
+      >
         <div className="flex flex-col gap-2">
-          <label htmlFor="inputData">Input Data</label>
+          <label htmlFor="inputData" className="text-sm font-medium">
+            Input Data
+          </label>
           <textarea
             id="inputData"
             name="inputData"
@@ -79,14 +84,12 @@ export default function Hook() {
             onChange={handleChange}
             placeholder='e.g. {"comment": {"email": "example@gmail.com","amount": "$100"}}'
             rows={10}
-            cols={40}
-            className="p-2 border border-gray-300 rounded-md"
-            style={{ resize: "vertical" }}
+            className="p-2 border border-gray-300 rounded-md resize-vertical"
           />
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
         <button
-          className="text-sm px-8 py-2 cursor-pointer hover:shadow-lg bg-amber-700 text-white rounded-full text-center"
+          className="text-sm px-4 py-2 cursor-pointer hover:shadow-lg bg-amber-700 text-white rounded-full text-center"
           type="submit"
         >
           Submit

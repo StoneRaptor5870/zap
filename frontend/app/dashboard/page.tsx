@@ -79,8 +79,8 @@ export default function ZapList() {
       <Appbar />
       <div className="flex justify-center pt-8">
         <div className="max-w-screen-lg w-full">
-          <div className="flex justify-between pr-8">
-            <div className="text-2xl font-bold">My Zaps</div>
+          <div className="flex justify-between pr-6">
+            <div className="text-2xl font-bold pl-4">My Zaps</div>
             <DarkButton
               onClick={() => {
                 router.push("/zap/create");
@@ -111,7 +111,7 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
   const filteredZaps = zaps.filter((zap) => zap.trigger !== null);
 
   return (
-    <div className="pt-8 max-w-screen-lg w-full">
+    <div className="pt-12 pr-4 pl-4 max-w-screen-lg w-full">
       <div className="flex justify-between gap-12">
         <div className="flex-1">Name</div>
         <div className="flex-1">ID</div>
@@ -121,7 +121,7 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
       </div>
       {filteredZaps.map((z) => (
         <div key={z.id} className="flex border-b border-t py-4 gap-12">
-          <div className="flex-1 flex">
+          <div className="flex-1 flex overflow-x-auto">
             <img
               src={z.trigger!.type!.image}
               className="w-[30px] h-[30px]"
@@ -136,9 +136,9 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
               />
             ))}
           </div>
-          <div className="flex-1">{z.id}</div>
+          <div className="flex-1 overflow-x-auto">{z.id}</div>
           {/* <div className="flex-1">{new Date().toLocaleString()}</div> */}
-          <div className="flex-1">
+          <div className="flex-1 overflow-x-auto">
             <a
               href={`${HOOKS_URL}/hooks/catch/${z.userId}/${z.id}`}
               target="_blank"
@@ -148,7 +148,7 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
               {`${HOOKS_URL}/hooks/catch/${z.userId}/${z.id}`}
             </a>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 overflow-x-auto">
             <LinkButton
               onClick={() => {
                 router.push("/zap/" + z.id);

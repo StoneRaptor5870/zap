@@ -14,10 +14,6 @@ app.use(cors());
 
 const PORT = process.env.PORT;
 
-app.use("/", (req: Request, res: Response) => {
-  res.send("<h1>Hello from the zap primary backend server!!!</h1>");
-});
-
 app.use("/api/v1/user", userRouter);
 
 app.use("/api/v1/zap", zapRouter);
@@ -25,6 +21,10 @@ app.use("/api/v1/zap", zapRouter);
 app.use("/api/v1/trigger", triggerRouter);
 
 app.use("/api/v1/action", actionRouter);
+
+app.use("/", (req: Request, res: Response) => {
+  res.send("<h1>Hello from the zap primary backend server!!!</h1>");
+});
 
 app.listen(PORT, () => {
   console.log(`Backend running on ${PORT}.`)

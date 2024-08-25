@@ -42,6 +42,10 @@ app.post("/hooks/catch/:userId/:zapId", async (req: Request, res: Response) => {
   });
 });
 
+app.use("/", (req: Request, res: Response) => {
+  res.send("Hello from the hooks server!");
+});
+
 app.listen(PORT, () => {
     console.log(`Webhook server is running on ${PORT}.`)
 });

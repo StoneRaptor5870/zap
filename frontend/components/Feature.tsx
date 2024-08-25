@@ -6,7 +6,7 @@ export const Feature = ({
   subtitle: string;
 }) => {
   return (
-    <div className="flex pl-8">
+    <div className="flex">
       <Check />
       <div className="flex flex-col justify-center pl-2">
         <div className="flex">

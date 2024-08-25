@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="pb-2">
       <Appbar />
-      <div className="pt-16">
+      <div className="pt-16 px-4 sm:px-6 md:px-8">
         <Hero />
         <div className="pt-8">
           <HeroVideo />

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
    "build": "npx tsc -b",
-    "migrate": "npx prisma migrate deploy",
-    "generate": "npx prisma generate",
-    "start": "node dist/index.js"
+   "migrate": "npx prisma migrate deploy",
+   "generate": "npx prisma generate",
+   "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

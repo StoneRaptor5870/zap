@@ -43,7 +43,7 @@ app.post("/hooks/catch/:userId/:zapId", async (req: Request, res: Response) => {
 });
 
 app.use("/", (req: Request, res: Response) => {
-  res.send("Hello from the hooks server!");
+  res.send("<h1>Hello from the hooks server!</h1>");
 });
 
 app.listen(PORT, () => {

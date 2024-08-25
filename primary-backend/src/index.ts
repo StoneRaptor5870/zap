@@ -23,7 +23,7 @@ app.use("/api/v1/trigger", triggerRouter);
 app.use("/api/v1/action", actionRouter);
 
 app.use("/", (req: Request, res: Response) => {
-  res.send("<h1>Hello from the zap primary backend server!</h1>");
+  res.send("<h1>Hello from the zap primary backend server!!</h1>");
 });
 
 app.listen(PORT, () => {

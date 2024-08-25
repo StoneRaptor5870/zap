@@ -1,3 +1,3 @@
 
-export const BACKEND_URL = "http://localhost:3001"
-export const HOOKS_URL = "http://localhost:3003"
+export const BACKEND_URL = "https://zap-primary-backend.onrender.com"
+export const HOOKS_URL = "https://zap-0lil.onrender.com"

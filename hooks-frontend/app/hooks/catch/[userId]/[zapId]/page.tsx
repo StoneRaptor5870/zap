@@ -46,7 +46,7 @@ export default function Hook() {
 
     try {
       const response = await fetch(
-        `http://localhost:3002/hooks/catch/${userId}/${zapId}`,
+        `https://zap-0lil.onrender.com/hooks/catch/${userId}/${zapId}`,
         {
           method: "POST",
           headers: {

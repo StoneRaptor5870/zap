@@ -9,55 +9,48 @@ import { Input } from "@/components/Input";
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { BACKEND_URL } from "../config";
 
-export default function () {
+export default function SignUp() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <div>
+    <div className="h-screen flex flex-col">
       <Appbar />
-      <div className="flex justify-center">
-        <div className="flex pt-8 max-w-4xl">
-          <div className="flex-1 pt-20 px-4">
-            <div className="font-semibold text-3xl pb-4">
-              Join millions worldwide who automate their work using Zapier.
-            </div>
-            <div className="pb-6 pt-4">
-              <CheckFeature label={"Easy setup, no coding required"} />
-            </div>
-            <div className="pb-6">
-              <CheckFeature label={"Free forever for core features"} />
-            </div>
-            <CheckFeature label={"14-day trial of premium features & apps"} />
+      <div className="flex flex-col lg:flex-row flex-1 lg:gap-12 py-8 px-4 lg:px-8">
+        <div className="flex-1 lg:pr-8">
+          <div className="font-semibold text-3xl pb-4 text-center lg:text-left">
+            Join millions worldwide who automate their work using Zapier.
           </div>
-          <div className="flex-1 pt-6 pb-6 mt-12 px-4 border rounded">
+          <div className="pb-6 pt-4">
+            <CheckFeature label={"Easy setup, no coding required"} />
+          </div>
+          <div className="pb-6">
+            <CheckFeature label={"Free forever for core features"} />
+          </div>
+          <CheckFeature label={"14-day trial of premium features & apps"} />
+        </div>
+        <div className="flex-1 mt-6 lg:mt-0 border rounded">
+          <div className="flex flex-col gap-4 p-6">
             <Input
               label={"Name"}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
+              onChange={(e) => setName(e.target.value)}
               type="text"
               placeholder="Your name"
-            ></Input>
+            />
             <Input
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               label={"Email"}
               type="text"
               placeholder="Your Email"
-            ></Input>
+            />
             <Input
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
               label={"Password"}
               type="password"
               placeholder="Password"
-            ></Input>
-
+            />
             <div className="pt-4">
               <PrimaryButton
                 onClick={async () => {

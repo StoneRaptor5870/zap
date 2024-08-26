@@ -29,7 +29,7 @@ function useAvailableActionsAndTriggers() {
   };
 }
 
-export default function () {
+export default function CreateZap () {
   const router = useRouter();
   const { availableActions, availableTriggers } =
     useAvailableActionsAndTriggers();
@@ -95,7 +95,7 @@ export default function () {
         </div>
         <div className="w-full pt-2 pb-2">
           {selectedActions.map((action, index) => (
-            <div className="pt-2 flex justify-center">
+            <div key={action.index} className="pt-2 flex justify-center">
               {" "}
               <ZapCell
                 onClick={() => {
@@ -246,7 +246,7 @@ function Modal({
               <div>
                 {availableItems.map(({ id, name, image }) => {
                   return (
-                    <div
+                    <div key={id}
                       onClick={() => {
                         if (isTrigger) {
                           onSelect({
@@ -264,7 +264,7 @@ function Modal({
                       }}
                       className="flex border p-4 cursor-pointer hover:bg-slate-100"
                     >
-                      <img src={image} width={30} className="rounded-full" />{" "}
+                      <img alt="action" src={image} width={30} className="rounded-full" />{" "}
                       <div className="flex flex-col justify-center">
                         {" "}
                         {name}{" "}

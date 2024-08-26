@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Appbar } from "@/components/Appbar";
 import { useRouter } from "next/navigation";
-import { BACKEND_URL, HOOKS_URL } from "../config";
+import { BACKEND_URL, HOOKS_FRONTEND_URL } from "../config";
 import { LinkButton } from "@/components/buttons/LinkButton";
 import { DarkButton } from "@/components/buttons/DarkButton";
 
@@ -140,12 +140,12 @@ function ZapTable({ zaps }: { zaps: Zap[] }) {
           {/* <div className="flex-1">{new Date().toLocaleString()}</div> */}
           <div className="flex-1 overflow-x-auto">
             <a
-              href={`${HOOKS_URL}/hooks/catch/${z.userId}/${z.id}`}
+              href={`${HOOKS_FRONTEND_URL}/hooks/catch/${z.userId}/${z.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-amber-500 underline hover:text-amber-700"
             >
-              {`${HOOKS_URL}/hooks/catch/${z.userId}/${z.id}`}
+              {`${HOOKS_FRONTEND_URL}/hooks/catch/${z.userId}/${z.id}`}
             </a>
           </div>
           <div className="flex-1 overflow-x-auto">

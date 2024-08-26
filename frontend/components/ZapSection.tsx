@@ -29,7 +29,7 @@ export const ZapSection = ({ sentinelRef }: any) => {
       </div>
       <div className="flex justify-center pt-2">
         <div className="text-base md:text-xl font-normal text-center pt-8 max-w-xs md:max-w-2xl">
-          Do not see a template for what you need? You can start your next Zap just by describing what you want to automate in plain English. We'll draft a Zap for you to customize to your exact needs.
+          Do not see a template for what you need? You can start your next Zap just by describing what you want to automate in plain English. We will draft a Zap for you to customize to your exact needs.
         </div>
       </div>
 
